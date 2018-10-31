@@ -78,8 +78,17 @@ else if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
     }
 }
 
+
+if (empty($num)) {
+    $num = "";
+    $fname = "";
+    $lname = "";
+}
+
 # Show the records
 show_link_records($dbc);
+
+show_form($num,$fname,$lname);
 
 # Shows the input form
 function show_form($num,$fname,$lname) {
