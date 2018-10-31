@@ -42,6 +42,89 @@ function show_records($dbc) {
     }
 }
 
+# Shows the records in prints
+function show_record($dbc, $id) {
+    # Create a query to get the name and price sorted by price
+    $query = 'SELECT num, fname, lname FROM presidents WHERE num =' . $id . ' ORDER BY num DESC';
+
+    # Execute the query
+    $results = mysqli_query($dbc, $query);
+    check_results($results);
+
+    # Show results
+    if ($results) {
+        # But...wait until we know the query succeeded before
+        # starting the table.
+        echo '<H1>Selected President</H1>';
+        echo '<TABLE border="1">';
+        echo '<TR>';
+        echo '<TH>Num</TH>';
+        echo '<TH>Firstname</TH>';
+        echo '<th>Lastname</th>';
+        echo '</TR>';
+
+        # For each row result, generate a table row
+        if ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+            echo '<TR>';
+            echo '<TD>' . $row['num'] . '</TD>';
+            echo '<TD>' . $row['fname'] . '</TD>';
+            echo '<TD>' . $row['lname'] . '</TD>';
+            echo '</TR>';
+        }
+
+        # End the table
+        echo '</TABLE>';
+
+        # Free up the results in memory
+        mysqli_free_result($results);
+    } else {
+        # If we get here, something has gone wrong
+        echo '<p>' . mysqli_error($dbc) . '</p>';
+    }
+}
+
+# Shows the records in prints
+function show_link_records($dbc) {
+    # Create a query to get the name and price sorted by price
+    $query = 'SELECT num, lname FROM presidents ORDER BY num DESC';
+
+    # Execute the query
+    $results = mysqli_query($dbc, $query);
+    check_results($results);
+
+    # Show results
+    if ($results) {
+        # But...wait until we know the query succeeded before
+        # starting the table.
+        echo '<H1>Dead Presidents</H1>';
+        echo '<TABLE border="1">';
+        echo '<TR>';
+        echo '<TH>Link</TH>';
+//        echo '<TH>Firstname</TH>';
+//        echo '<th>Lastname</th>';
+        echo '</TR>';
+
+        # For each row result, generate a table row
+        while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+            echo '<TR>';
+            echo '<TD align="right"><a href=linkypresidents.php?id=' . $row['num'] . '>' . $row['num'] . '</a></TD>';
+//            echo '<TD>' . $row['num'] . '</TD>';
+//            echo '<TD>' . $row['fname'] . '</TD>';
+//            echo '<TD>' . $row['lname'] . '</TD>';
+            echo '</TR>';
+        }
+
+        # End the table
+        echo '</TABLE>';
+
+        # Free up the results in memory
+        mysqli_free_result($results);
+    } else {
+        # If we get here, something has gone wrong
+        echo '<p>' . mysqli_error($dbc) . '</p>';
+    }
+}
+
 # Inserts a record into the prints table
 function insert_record($dbc, $num, $fname, $lname) {
     $query = 'INSERT INTO presidents(num, fname, lname) VALUES ("' . $num . '" , "' . $fname . '", "' . $lname . '" )';
