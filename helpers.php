@@ -45,7 +45,7 @@ function show_records($dbc) {
 # Shows the records in prints
 function show_record($dbc, $id) {
     # Create a query to get the name and price sorted by price
-    $query = 'SELECT num, fname, lname FROM presidents WHERE num =' . $id . ' ORDER BY num DESC';
+    $query = 'SELECT id, fname, lname FROM presidents WHERE id =' . $id . ' ORDER BY id DESC';
 
     # Execute the query
     $results = mysqli_query($dbc, $query);
@@ -58,7 +58,7 @@ function show_record($dbc, $id) {
         echo '<H1>Selected President</H1>';
         echo '<TABLE border="1">';
         echo '<TR>';
-        echo '<TH>Num</TH>';
+        echo '<TH>Id</TH>';
         echo '<TH>Firstname</TH>';
         echo '<th>Lastname</th>';
         echo '</TR>';
@@ -66,7 +66,7 @@ function show_record($dbc, $id) {
         # For each row result, generate a table row
         if ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
             echo '<TR>';
-            echo '<TD>' . $row['num'] . '</TD>';
+            echo '<TD>' . $row['id'] . '</TD>';
             echo '<TD>' . $row['fname'] . '</TD>';
             echo '<TD>' . $row['lname'] . '</TD>';
             echo '</TR>';
@@ -86,7 +86,7 @@ function show_record($dbc, $id) {
 # Shows the records in prints
 function show_link_records($dbc) {
     # Create a query to get the name and price sorted by price
-    $query = 'SELECT num, lname FROM presidents ORDER BY num DESC';
+    $query = 'SELECT id, lname FROM presidents ORDER BY id DESC';
 
     # Execute the query
     $results = mysqli_query($dbc, $query);
@@ -107,8 +107,8 @@ function show_link_records($dbc) {
         # For each row result, generate a table row
         while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
             echo '<TR>';
-            echo '<TD align="right"><a href=linkypresidents.php?id=' . $row['num'] . '>' . $row['num'] . '</a></TD>';
-//            echo '<TD>' . $row['num'] . '</TD>';
+            echo '<TD align="right"><a href=linkypresidents.php?id=' . $row['id'] . '>' . $row['id'] . '</a></TD>';
+//            echo '<TD>' . $row['id'] . '</TD>';
 //            echo '<TD>' . $row['fname'] . '</TD>';
 //            echo '<TD>' . $row['lname'] . '</TD>';
             echo '</TR>';

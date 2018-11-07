@@ -75,7 +75,9 @@ else if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' )
     }
     else {
         echo "<p>Success! Thanks $num </p>" ;
+        insert_record($dbc, $num, $fname, $lname);
     }
+
 }
 
 
